@@ -17,7 +17,7 @@ namespace RadGauge
                 new float[0], BindingMode.OneWay, null, OnRangesPropertyChanged);
 
         private SKSize axisSize;
-        private double offset;
+        private float offset;
         private SKSize rangesSize;
         private SKSize indicatorSize;
 
@@ -65,16 +65,19 @@ namespace RadGauge
         private void Measure(SKSize availableSize)
         {
             axisSize = this.Axis.Measure(availableSize);
-            offset = this.Axis.MaxLabelSize.Height / 2;
-            rangesSize = this.RangesRenderer.Measure(availableSize);
-            indicatorSize = this.Indicator.Measure(availableSize);
+            offset = this.Axis.MaxLabelSize.Height;
+
+            var inflatedSize = new SKSize(availableSize.Width, availableSize.Height - offset);
+
+            rangesSize = this.RangesRenderer.Measure(inflatedSize);
+            indicatorSize = this.Indicator.Measure(inflatedSize);
         }
 
         private void Render(SKCanvas canvas)
         {
             this.Axis.Render(canvas, new SKRect() { Top = 0, Left = 0, Size = axisSize });
-            this.RangesRenderer.Render(canvas, new SKRect() { Left = rangesSize.Width, Top = (float)offset, Size = rangesSize });
-            this.Indicator.Render(canvas, new SKRect() { Left = indicatorSize.Width + indicatorSize.Width, Top = (float)offset, Size = indicatorSize });
+            this.RangesRenderer.Render(canvas, new SKRect() { Left = rangesSize.Width, Top = offset / 2, Size = rangesSize });
+            this.Indicator.Render(canvas, new SKRect() { Left = indicatorSize.Width + indicatorSize.Width, Top = offset / 2, Size = indicatorSize });
         }
 
         private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
