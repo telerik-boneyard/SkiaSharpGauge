@@ -24,7 +24,7 @@ namespace RadGauge
 
         internal SKSize Measure(SKSize availableSize)
         {
-            throw new NotImplementedException();
+            return new SKSize(20, 150);
         }
     }
 }

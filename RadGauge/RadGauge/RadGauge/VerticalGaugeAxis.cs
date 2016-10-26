@@ -111,9 +111,9 @@ namespace RadGauge
             return new SKSize(maxWidth, maxHeight);
         }
 
-        internal SKRect Measure(SKSize availableSize)
+        internal SKSize Measure(SKSize availableSize)
         {
-            throw new NotImplementedException();
+            return new SKSize(50, 150);
         }
     }
 }
