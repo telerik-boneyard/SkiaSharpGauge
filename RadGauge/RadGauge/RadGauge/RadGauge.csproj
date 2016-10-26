@@ -41,6 +41,7 @@
       <DependentUpon>RadVerticalGauge.xaml</DependentUpon>
     </Compile>
     <Compile Include="VerticalGaugePart.cs" />
+    <Compile Include="VerticalGaugeAxis.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
