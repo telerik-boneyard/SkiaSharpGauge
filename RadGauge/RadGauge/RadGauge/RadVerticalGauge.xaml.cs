@@ -23,7 +23,7 @@ namespace RadGauge
             //this.Parts = new List<VerticalGaugePart>();
             this.Axis = new VerticalGaugeAxis();
             this.RangesRenderer = new VerticalGaugeRangesRenderer();
-            this.Indicator = new VerticalGaugeIndicator();
+            this.Indicator = new VerticalGaugeIndicator() { WidthRequest = 20, Value = 22, };
         }
 
         internal VerticalGaugeAxis Axis

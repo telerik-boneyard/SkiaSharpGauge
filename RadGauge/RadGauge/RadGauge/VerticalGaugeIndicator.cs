@@ -7,8 +7,48 @@ namespace RadGauge
     {
         int min = 0;
         int max = 100;
-        int value = 67;
-        int desiredWidth = 50;
+
+        double value = 67;
+
+        float actualWidthRequest = 50;
+        float widthRequest = 50;
+
+        public double Value
+        {
+            get
+            {
+                return this.value;
+            }
+            set
+            {
+                this.value = value;
+            }
+        }
+
+        public float WidthRequest
+        {
+            get
+            {
+                return this.widthRequest;
+            }
+            set
+            {
+                if (this.widthRequest == value)
+                {
+                    return;
+                }
+                this.widthRequest = value;
+
+                if (0 <= value && value <= float.MaxValue)
+                {
+                    this.actualWidthRequest = value;
+                }
+                else
+                {
+                    this.actualWidthRequest = 0;
+                }
+            }
+        }
 
         public override void Render(SKCanvas canvas, SKRect layoutSlot)
         {
@@ -41,7 +81,7 @@ namespace RadGauge
         internal SKSize Measure(SKSize availableSize)
         {
             float desiredHeight = availableSize.Height < double.MaxValue ? availableSize.Height : 0;
-            return new SKSize(this.desiredWidth, desiredHeight);
+            return new SKSize(this.actualWidthRequest, desiredHeight);
         }
 
         internal static float GetTickPosition(double value, double min, double max, SKRect layoutSlot)
