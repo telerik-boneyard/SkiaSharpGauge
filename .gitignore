@@ -1,0 +1,12 @@
+packages
+bin
+obj
+
+*.userprefs
+*.rej
+
+*.suo
+*.csproj.user
+*.shproj.user
+
+*.usertest
