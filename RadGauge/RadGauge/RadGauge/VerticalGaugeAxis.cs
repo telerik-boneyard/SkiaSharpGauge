@@ -11,6 +11,7 @@ namespace RadGauge
         float fontSize = 20f;
         float axisWidth = 1f;
         float tickLength = 5f;
+        float tickThickness = 1f;
 
         SKSize maxLabelSize;
 
@@ -35,35 +36,52 @@ namespace RadGauge
             var height = layoutSlot.Height - maxLabelSize.Height;
 
             var axisLayoutSlot = new SKRect(left, top, left + layoutSlot.Width, top + height);
+            var tickLeft = left + maxLabelSize.Width;
+
+            for (var i = min; i <= max; i += step)
+            {
+                var position = VerticalGaugeIndicator.GetTickPosition(i, min, max, axisLayoutSlot);
+                DrawLabel(i.ToString(), left, position, canvas);
 
 
-            //for (var i = min; i <= max; i += step)
-            //{
-            //    var position = VerticalGaugeIndicator.GetTickPosition(i, min, max, axisLayoutSlot);
-            //    DrawLabel(i.ToString(), left, position, canvas);
+                var tickTop = position;
+
+                var tickRect = new SKRect(tickLeft, tickTop, tickLeft + tickLength, tickTop + tickThickness);
+                DrawRect(tickRect, canvas);
+            }
+
+            var axisLeft = tickLeft + tickLength;
 
 
-
-            //}
-        }
-
-        internal double GetOffset()
-        {
-            return 20;
+            DrawRect(new SKRect(axisLeft, top, axisLeft + axisWidth, top + height), canvas);
         }
 
         private void DrawLabel(string text, float left, float top, SKCanvas canvas)
         {
             using (var paint = new SKPaint())
             {
-                paint.TextSize = 64.0f;
+                paint.TextSize = 20f;
                 paint.IsAntialias = true;
-                paint.Color = (SKColor)0xFF4281A4;
+                paint.Color = (SKColor)0xFFFF0000;
+                paint.TextEncoding = SKTextEncoding.Utf32;
                 paint.IsStroke = false;
 
                 canvas.DrawText(text, left, top, paint);
             }
         }
+
+        private void DrawRect(SKRect rect, SKCanvas canvas)
+        {
+            using (var paint = new SKPaint())
+            {
+                paint.IsAntialias = true;
+                paint.Color = (SKColor)0xFFFF0000;
+
+                canvas.DrawRect(rect, paint);
+            }
+        }
+
+
 
         private SKSize GetMaxLabelSize()
         {

@@ -55,7 +55,7 @@ namespace RadGauge
         private void Measure(SKSize availableSize)
         {
             axisSize = this.Axis.Measure(availableSize);
-            offset = this.Axis.GetOffset();
+            offset = this.Axis.MaxLabelSize.Height / 2;
             rangesSize = this.RangesRenderer.Measure(availableSize);
             indicatorSize = this.Indicator.Measure(availableSize);
         }
