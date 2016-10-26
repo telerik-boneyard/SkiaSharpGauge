@@ -255,6 +255,14 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "SkiaSharp/1.54.1": {
+        "compile": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Collections": "4.0.0",
@@ -2049,6 +2057,14 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "SkiaSharp/1.54.1": {
+        "compile": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Collections": "4.0.0",
@@ -3689,6 +3705,14 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "SkiaSharp/1.54.1": {
+        "compile": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Collections": "4.0.0",
@@ -5325,6 +5349,14 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "SkiaSharp/1.54.1": {
+        "compile": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -6967,6 +6999,14 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "SkiaSharp/1.54.1": {
+        "compile": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        }
+      },
       "System.AppContext/4.0.0": {
         "dependencies": {
           "System.Collections": "4.0.0",
@@ -8603,6 +8643,14 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "SkiaSharp/1.54.1": {
+        "compile": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -10243,6 +10291,14 @@
         },
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
+        }
+      },
+      "SkiaSharp/1.54.1": {
+        "compile": {
+          "lib/uap10.0/SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/SkiaSharp.dll": {}
         }
       },
       "System.AppContext/4.0.0": {
@@ -12252,6 +12308,40 @@
         "ref/net46/Microsoft.Win32.Primitives.dll",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._"
+      ]
+    },
+    "SkiaSharp/1.54.1": {
+      "sha512": "DfeLEQ7bNPqzXY3lVoQsnoDrLZejI3TW+OarRIsmoilbMdPplK+FtxlvN+jUoKpiA/7mk+uorqQ+jwBPgGybGQ==",
+      "type": "package",
+      "files": [
+        "SkiaSharp.1.54.1.nupkg.sha512",
+        "SkiaSharp.nuspec",
+        "build/XamarinMac/SkiaSharp.targets",
+        "build/XamarinMac/libSkiaSharp.dylib",
+        "build/net45/SkiaSharp.dll.config",
+        "build/net45/SkiaSharp.targets",
+        "build/net45/mac/libSkiaSharp.dylib",
+        "build/net45/x64/libSkiaSharp.dll",
+        "build/net45/x86/libSkiaSharp.dll",
+        "build/uap10.0/SkiaSharp.targets",
+        "build/uap10.0/arm/libSkiaSharp.dll",
+        "build/uap10.0/x64/libSkiaSharp.dll",
+        "build/uap10.0/x86/libSkiaSharp.dll",
+        "lib/MonoAndroid/SkiaSharp.dll",
+        "lib/MonoAndroid/SkiaSharp.xml",
+        "lib/XamarinMac/SkiaSharp.dll",
+        "lib/XamarinMac/SkiaSharp.xml",
+        "lib/XamariniOS/SkiaSharp.dll",
+        "lib/XamariniOS/SkiaSharp.xml",
+        "lib/XamarintvOS/SkiaSharp.dll",
+        "lib/XamarintvOS/SkiaSharp.xml",
+        "lib/net45/SkiaSharp.dll",
+        "lib/net45/SkiaSharp.dll.config",
+        "lib/net45/SkiaSharp.xml",
+        "lib/portable-net45+win8+wpa81+wp8/SkiaSharp.dll",
+        "lib/portable-net45+win8+wpa81+wp8/SkiaSharp.xml",
+        "lib/uap10.0/SkiaSharp.dll",
+        "lib/uap10.0/SkiaSharp.xml"
       ]
     },
     "System.AppContext/4.0.0": {
@@ -14977,6 +15067,7 @@
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
+      "SkiaSharp >= 1.54.1",
       "Xamarin.Forms >= 2.3.2.127"
     ],
     "UAP,Version=v10.0": []
