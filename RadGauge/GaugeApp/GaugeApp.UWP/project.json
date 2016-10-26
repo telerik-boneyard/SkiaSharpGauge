@@ -1,5 +1,7 @@
 ﻿{
   "dependencies": {
+    "SkiaSharp": "1.54.1",
+    "SkiaSharp.Views.Forms": "1.54.1-beta1",
     "Xamarin.Forms": "2.3.2.127"
   },
   "frameworks": {

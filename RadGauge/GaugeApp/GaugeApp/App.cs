@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SkiaSharp;
+using SkiaSharp.Views.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,22 +13,11 @@ namespace GaugeApp
     {
         public App()
         {
-            // The root page of your application
-            var content = new ContentPage
-            {
-                Title = "GaugeApp",
-                Content = new StackLayout
-                {
-                    VerticalOptions = LayoutOptions.Center,
-                    Children = {
-                        new Label {
-                            HorizontalTextAlignment = TextAlignment.Center,
-                            Text = "Welcome to Xamarin Forms!"
-                        }
-                    }
-                }
-            };
 
+
+
+            // The root page of your application
+            var content = new Page1();
             MainPage = new NavigationPage(content);
         }
 
