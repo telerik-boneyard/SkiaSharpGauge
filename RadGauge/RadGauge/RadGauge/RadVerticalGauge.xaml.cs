@@ -49,9 +49,7 @@ namespace RadGauge
             base.OnSizeAllocated(width, height);
             if (width == -1) return;
 
-            this.Axis.Measure(new SKSize((float)width, (float)height));
-            this.RangesRenderer.Measure(new SKSize((float)width, (float)height));
-            this.Indicator.Measure(new SKSize((float)width, (float)height));
+            this.Measure(new SKSize((float)width, (float)height));
         }
 
         private void Measure(SKSize availableSize)
@@ -65,8 +63,8 @@ namespace RadGauge
         private void Render(SKCanvas canvas)
         {
             this.Axis.Render(canvas, new SKRect() { Top = 0, Left = 0, Size = axisSize });
-            this.RangesRenderer.Render(canvas, new SKRect() { Left = axisSize.Width, Top = (float)offset, Size = rangesSize });
-            this.Indicator.Render(canvas, new SKRect() { Left = axisSize.Width + rangesSize.Width, Top = (float)offset, Size = indicatorSize });
+            this.RangesRenderer.Render(canvas, new SKRect() { Left = rangesSize.Width, Top = (float)offset, Size = rangesSize });
+            this.Indicator.Render(canvas, new SKRect() { Left = indicatorSize.Width + indicatorSize.Width, Top = (float)offset, Size = indicatorSize });
         }
 
         private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
