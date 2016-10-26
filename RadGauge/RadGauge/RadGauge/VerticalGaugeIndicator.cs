@@ -8,20 +8,34 @@ namespace RadGauge
         int min = 0;
         int max = 100;
         int value = 67;
-        int desiredWidth = 5;
+        int desiredWidth = 50;
 
         public override void Render(SKCanvas canvas, SKRect layoutSlot)
         {
             float position = (float)GetTickPosition(this.value, this.min, this.max, layoutSlot);
-            using (var paint = new SKPaint())
+            using (var paint = this.CreatePaint())
             {
-                paint.IsAntialias = true;
-                paint.Color = new SKColor(0x55, 0xaa, 0xee);
-                paint.StrokeCap = SKStrokeCap.Round;
-                paint.StrokeWidth = 5;
+                using (var path = new SKPath())
+                {
+                    path.MoveTo(layoutSlot.Left, position);
+                    path.LineTo(layoutSlot.Right, position - (layoutSlot.Width / 2));
+                    path.LineTo(layoutSlot.Right, position + (layoutSlot.Width / 2));
+                    path.Close();
 
-                canvas.DrawLine(layoutSlot.Left, position, layoutSlot.Right, position, paint);
+                    canvas.DrawPath(path, paint);
+                }
             }
+        }
+
+        private SKPaint CreatePaint()
+        {
+            SKPaint paint = new SKPaint();
+            paint.IsAntialias = true;
+            paint.Color = new SKColor(0x55, 0xaa, 0xee);
+            paint.StrokeCap = SKStrokeCap.Round;
+            paint.StrokeWidth = 5;
+
+            return paint;
         }
 
         internal SKSize Measure(SKSize availableSize)
