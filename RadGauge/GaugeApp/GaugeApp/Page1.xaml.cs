@@ -1,4 +1,5 @@
-﻿using SkiaSharp;
+﻿using RadGauge;
+using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace GaugeApp
         public Page1()
         {
             InitializeComponent();
+            this.root.Children.Add(new RadVerticalGauge());
         }
     }
 }
