@@ -39,7 +39,7 @@ namespace RadGauge
 
         internal SKSize Measure(SKSize availableSize)
         {
-            return new SKSize(20, 150);
+            return new SKSize(50, availableSize.Height);
         }
     }
 }

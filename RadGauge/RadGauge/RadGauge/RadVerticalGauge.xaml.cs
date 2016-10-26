@@ -69,7 +69,10 @@ namespace RadGauge
 
         private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
         {
-            this.Render(e.Surface.Canvas);
+            var canvas = e.Surface.Canvas;
+            canvas.Clear(Color.Gray.ToSKColor());
+
+            this.Render(canvas);
         }
     }
 }
