@@ -40,8 +40,9 @@
     <Compile Include="RadVerticalGauge.xaml.cs">
       <DependentUpon>RadVerticalGauge.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VerticalGaugePart.cs" />
     <Compile Include="VerticalGaugeAxis.cs" />
+    <Compile Include="VerticalGaugePart.cs" />
+    <Compile Include="VerticalGaugeRangesRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
