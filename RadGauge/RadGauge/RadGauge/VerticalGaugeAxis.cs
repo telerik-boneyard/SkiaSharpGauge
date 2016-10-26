@@ -34,7 +34,7 @@ namespace RadGauge
 
             var height = layoutSlot.Height - maxLabelSize.Height;
 
-            var axisLayoutSlot = new SKRect(left, top, left + layoutSlot.Width, top + height)
+            var axisLayoutSlot = new SKRect(left, top, left + layoutSlot.Width, top + height);
 
 
             //for (var i = min; i <= max; i += step)
@@ -47,7 +47,10 @@ namespace RadGauge
             //}
         }
 
-
+        internal double GetOffset()
+        {
+            return 20;
+        }
 
         private void DrawLabel(string text, float left, float top, SKCanvas canvas)
         {
@@ -111,9 +114,6 @@ namespace RadGauge
             return new SKSize(maxWidth, maxHeight);
         }
 
-        internal SKSize Measure(SKSize availableSize)
-        {
-            return new SKSize(50, 150);
-        }
+
     }
 }
