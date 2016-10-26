@@ -10,3 +10,4 @@ obj
 *.shproj.user
 
 *.usertest
+*.lock.json
