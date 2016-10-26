@@ -21,12 +21,12 @@ namespace RadGauge
         {
             InitializeComponent();
             //this.Parts = new List<VerticalGaugePart>();
-            this.Axis = new VerticalGaugeAxis();
+            this.Axis = new VerticalGaugeAxisRenderer();
             this.RangesRenderer = new VerticalGaugeRangesRenderer();
-            this.Indicator = new VerticalGaugeIndicator() { WidthRequest = 20, Value = 22, };
+            this.Indicator = new VerticalGaugeIndicatorRenderer() { WidthRequest = 20, Value = 22, };
         }
 
-        internal VerticalGaugeAxis Axis
+        internal VerticalGaugeAxisRenderer Axis
         {
             get;
             set;
@@ -38,7 +38,7 @@ namespace RadGauge
             set;
         }
 
-        internal VerticalGaugeIndicator Indicator
+        internal VerticalGaugeIndicatorRenderer Indicator
         {
             get;
             set;

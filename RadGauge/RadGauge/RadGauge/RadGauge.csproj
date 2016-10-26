@@ -40,9 +40,9 @@
     <Compile Include="RadVerticalGauge.xaml.cs">
       <DependentUpon>RadVerticalGauge.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VerticalGaugeAxis.cs" />
-    <Compile Include="VerticalGaugeIndicator.cs" />
-    <Compile Include="VerticalGaugePart.cs" />
+    <Compile Include="VerticalGaugeAxisRenderer.cs" />
+    <Compile Include="VerticalGaugeIndicatorRenderer.cs" />
+    <Compile Include="IGaugePartRenderer.cs" />
     <Compile Include="VerticalGaugeRangesRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
