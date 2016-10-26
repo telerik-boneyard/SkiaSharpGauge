@@ -12,6 +12,10 @@ namespace RadGauge
 {
     public partial class RadVerticalGauge : ContentView
     {
+        public static BindableProperty RangesProperty =
+            BindableProperty.Create("Ranges", typeof(float[]), typeof(RadVerticalGauge),
+                new float[0], BindingMode.OneWay, null, OnRangesPropertyChanged);
+
         private SKSize axisSize;
         private double offset;
         private SKSize rangesSize;
@@ -24,6 +28,12 @@ namespace RadGauge
             this.Axis = new VerticalGaugeAxisRenderer();
             this.RangesRenderer = new VerticalGaugeRangesRenderer();
             this.Indicator = new VerticalGaugeIndicatorRenderer() { WidthRequest = 20, Value = 22, };
+        }
+
+        public float[] Ranges
+        {
+            get { return (float[])this.GetValue(RangesProperty); }
+            set { this.SetValue(RangesProperty, value); }
         }
 
         internal VerticalGaugeAxisRenderer Axis
@@ -73,6 +83,13 @@ namespace RadGauge
             canvas.Clear(Color.Gray.ToSKColor());
 
             this.Render(canvas);
+        }
+
+        private static void OnRangesPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            RadVerticalGauge gauge = bindable as RadVerticalGauge;
+            gauge.RangesRenderer.Ranges = gauge.Ranges;
+            gauge.InvalidateLayout();
         }
     }
 }

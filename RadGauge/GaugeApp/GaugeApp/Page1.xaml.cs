@@ -16,7 +16,7 @@ namespace GaugeApp
         public Page1()
         {
             InitializeComponent();
-            this.root.Children.Add(new RadVerticalGauge());
+            this.root.Children.Add(new RadVerticalGauge() { Ranges = new float[] { 0, 33, 66, 100 } });
         }
     }
 }
