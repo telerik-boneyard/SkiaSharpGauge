@@ -19,16 +19,16 @@ namespace RadGauge
         {
             float totalHeight = layoutSlot.Height;
 
-            float top = layoutSlot.Top;
+            float bottom = layoutSlot.Bottom;
 
             for (int i = 0; i < ranges.Length - 1; i++)
             {
-                float ratio = (max - min) / (ranges[i + 1] - ranges[i]);
+                float ratio = (ranges[i + 1] - ranges[i]) / (max - min);
 
-                float rangeHeight = totalHeight / ratio;
+                float rangeHeight = totalHeight * ratio;
 
-                SKRect rect = new SKRect(layoutSlot.Left, top, layoutSlot.Right, top + rangeHeight);
-                top = top + rangeHeight;
+                SKRect rect = new SKRect(layoutSlot.Left, bottom - rangeHeight, layoutSlot.Right, bottom);
+                bottom = bottom - rangeHeight;
 
                 Color color = colors[i];
                 DrawRectangle(canvas, rect, color);
