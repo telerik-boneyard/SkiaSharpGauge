@@ -88,6 +88,9 @@ namespace RadGauge
                     // draw the Xamagon path
                     canvas.DrawPath(path, paint);
                 }
+
+                VerticalGaugeIndicator indicator = new RadGauge.VerticalGaugeIndicator();
+                indicator.Render(canvas, new SKRect(100, 50, 150, 80));
             }
         }
     }
