@@ -44,13 +44,13 @@ namespace RadGauge
             return new SKSize(this.desiredWidth, desiredHeight);
         }
 
-        internal static double GetTickPosition(double value, double min, double max, SKRect layoutSlot)
+        internal static float GetTickPosition(double value, double min, double max, SKRect layoutSlot)
         {
             double relativePosition = (value - min) / (max - min);
             double position = relativePosition * layoutSlot.Height;
             position = layoutSlot.Bottom - position;
 
-            return position;
+            return (float)position;
         }
     }
 }
