@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SkiaSharp;
+﻿using SkiaSharp;
 using Xamarin.Forms;
 
 namespace RadGauge
@@ -13,22 +8,18 @@ namespace RadGauge
         private float min = 0;
         private float max = 100;
         private float[] ranges = { 0, 33, 66, 100 };
-        private Color[] colors = { Color.White, Color.Green, Color.Red };
+        private Color[] colors = { Color.Red, Color.Green, Color.White };
 
         public override void Render(SKCanvas canvas, SKRect layoutSlot)
         {
             float totalHeight = layoutSlot.Height;
 
-            float bottom = layoutSlot.Bottom;
-
             for (int i = 0; i < ranges.Length - 1; i++)
             {
-                float ratio = (ranges[i + 1] - ranges[i]) / (max - min);
+                var bottom = VerticalGaugeIndicator.GetTickPosition(ranges[i], min, max, layoutSlot);
+                var top = VerticalGaugeIndicator.GetTickPosition(ranges[i + 1], min, max, layoutSlot);
 
-                float rangeHeight = totalHeight * ratio;
-
-                SKRect rect = new SKRect(layoutSlot.Left, bottom - rangeHeight, layoutSlot.Right, bottom);
-                bottom = bottom - rangeHeight;
+                SKRect rect = new SKRect(layoutSlot.Left, top, layoutSlot.Right, bottom);
 
                 Color color = colors[i];
                 DrawRectangle(canvas, rect, color);
