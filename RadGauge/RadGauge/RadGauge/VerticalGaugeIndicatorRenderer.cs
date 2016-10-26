@@ -1,5 +1,5 @@
 ﻿using SkiaSharp;
-using System;
+using Xamarin.Forms;
 
 namespace RadGauge
 {
@@ -12,6 +12,14 @@ namespace RadGauge
 
         float actualWidthRequest = 50;
         float widthRequest = 50;
+
+        private Color color = Color.FromHex("55AAEE");
+        private SKColor skColor;
+
+        public VerticalGaugeIndicatorRenderer()
+        {
+            this.skColor = ColorExtensions.ToSKColor(this.color);
+        }
 
         public double Value
         {
@@ -50,6 +58,22 @@ namespace RadGauge
             }
         }
 
+        public Color Color
+        {
+            get
+            {
+                return this.color;
+            }
+            set
+            {
+                if (this.color != value)
+                {
+                    this.color = value;
+                    this.skColor = ColorExtensions.ToSKColor(this.color);
+                }
+            }
+        }
+
         public void Render(SKCanvas canvas, SKRect layoutSlot)
         {
             float position = (float)GetTickPosition(this.value, this.min, this.max, layoutSlot);
@@ -71,7 +95,7 @@ namespace RadGauge
         {
             SKPaint paint = new SKPaint();
             paint.IsAntialias = true;
-            paint.Color = new SKColor(0x55, 0xaa, 0xee);
+            paint.Color = this.skColor;
             paint.StrokeCap = SKStrokeCap.Round;
             paint.StrokeWidth = 5;
 
