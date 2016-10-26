@@ -30,5 +30,10 @@ namespace RadGauge
         {
 
         }
+
+        internal SKRect Measure(SKSize availableSize)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

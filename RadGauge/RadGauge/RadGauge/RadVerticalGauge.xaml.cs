@@ -15,6 +15,41 @@ namespace RadGauge
         public RadVerticalGauge()
         {
             InitializeComponent();
+            this.Parts = new List<VerticalGaugePart>();
+        }
+
+        internal VerticalGaugeAxis Axis
+        {
+            get;
+            set;
+        }
+
+        internal VerticalGaugeRangesRenderer RangesRenderer
+        {
+            get;
+            set;
+        }
+
+        internal VerticalGaugeIndicator Indicator
+        {
+            get;
+            set;
+        }
+
+        internal List<VerticalGaugePart> Parts { get; set; }
+
+        private SKRect axisRect;
+        private double offset;
+        private SKSize rangesSize;
+        private SKSize indicatorSize;
+
+        private void Measure(SKSize availableSize)
+        {
+            axisRect = this.Axis.Measure(availableSize);
+            offset = this.Axis.GetOffset();
+            rangesSize = this.RangesRenderer.Measure(availableSize);
+            indicatorSize = this.Indicator.Measure(availableSize);
+
         }
 
         private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)

@@ -41,6 +41,7 @@
       <DependentUpon>RadVerticalGauge.xaml</DependentUpon>
     </Compile>
     <Compile Include="VerticalGaugeAxis.cs" />
+    <Compile Include="VerticalGaugeIndicator.cs" />
     <Compile Include="VerticalGaugePart.cs" />
     <Compile Include="VerticalGaugeRangesRenderer.cs" />
   </ItemGroup>
