@@ -22,15 +22,19 @@ namespace RadGauge
 
         public static BindableProperty MaximumProperty =
             BindableProperty.Create("Maximum", typeof(double), typeof(RadVerticalGauge),
-                100d, BindingMode.OneWay, null, OnAxisPropertyChanged);
+                100d, BindingMode.OneWay, null, InvalidateGauge);
 
         public static BindableProperty MinimumProperty =
             BindableProperty.Create("Minimum", typeof(double), typeof(RadVerticalGauge),
-                0d, BindingMode.OneWay, null, OnAxisPropertyChanged);
+                0d, BindingMode.OneWay, null, InvalidateGauge);
 
         public static BindableProperty StepProperty =
             BindableProperty.Create("Step", typeof(double), typeof(RadVerticalGauge),
-                20d, BindingMode.OneWay, null, OnAxisPropertyChanged);
+                20d, BindingMode.OneWay, null, InvalidateGauge);
+
+        public static BindableProperty IndicatorValueProperty =
+            BindableProperty.Create("IndicatorValue", typeof(double), typeof(RadVerticalGauge),
+                20d, BindingMode.OneWay, null, InvalidateGauge);
 
         private SKSize axisSize;
         private float offset;
@@ -49,10 +53,9 @@ namespace RadGauge
         public RadVerticalGauge()
         {
             InitializeComponent();
-            //this.Parts = new List<VerticalGaugePart>();
             this.Axis = new VerticalGaugeAxisRenderer(this);
             this.RangesRenderer = new VerticalGaugeRangesRenderer(this);
-            this.Indicator = new VerticalGaugeIndicatorRenderer(this) { WidthRequest = 20, Value = 22, };
+            this.Indicator = new VerticalGaugeIndicatorRenderer(this) { WidthRequest = 20};
             this.isIndicatorInteractive = true;
         }
 
@@ -78,6 +81,12 @@ namespace RadGauge
         {
             get { return (double)this.GetValue(StepProperty); }
             set { this.SetValue(StepProperty, value); }
+        }
+
+        public double IndicatorValue
+        {
+            get { return (double)this.GetValue(IndicatorValueProperty); }
+            set { this.SetValue(IndicatorValueProperty, value); }
         }
 
         internal VerticalGaugeAxisRenderer Axis
@@ -144,7 +153,7 @@ namespace RadGauge
             gauge.InvalidateLayout();
         }
 
-        private static void OnAxisPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void InvalidateGauge(BindableObject bindable, object oldValue, object newValue)
         {
             RadVerticalGauge gauge = bindable as RadVerticalGauge;
 

@@ -5,8 +5,6 @@ namespace RadGauge
 {
     public class VerticalGaugeIndicatorRenderer : IGaugePartRenderer
     {
-        double value = 67;
-
         float actualWidthRequest = 50;
         float widthRequest = 50;
 
@@ -20,18 +18,6 @@ namespace RadGauge
         }
 
         public RadVerticalGauge Owner { get; set; }
-
-        public double Value
-        {
-            get
-            {
-                return this.value;
-            }
-            set
-            {
-                this.value = value;
-            }
-        }
 
         public float WidthRequest
         {
@@ -76,7 +62,7 @@ namespace RadGauge
 
         public void Render(SKCanvas canvas, SKRect layoutSlot)
         {
-            float position = GaugeRenderHelper.GetRelativePosition(this.value, this.Owner.Minimum, this.Owner.Maximum, layoutSlot.Bottom, layoutSlot.Top);
+            float position = GaugeRenderHelper.GetRelativePosition(this.Owner.IndicatorValue, this.Owner.Minimum, this.Owner.Maximum, layoutSlot.Bottom, layoutSlot.Top);
             if (position > layoutSlot.Bottom && position > layoutSlot.Top || position < layoutSlot.Bottom && position < layoutSlot.Top)
             {
                 return;
