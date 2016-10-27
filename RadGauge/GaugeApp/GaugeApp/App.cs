@@ -17,7 +17,7 @@ namespace GaugeApp
 
 
             // The root page of your application
-            var content = new Page1();
+            var content = new Page2();
             MainPage = new NavigationPage(content);
         }
 
