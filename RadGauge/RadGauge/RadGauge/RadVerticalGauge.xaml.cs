@@ -13,8 +13,8 @@ namespace RadGauge
     public partial class RadVerticalGauge : ContentView
     {
         public static BindableProperty RangesProperty =
-            BindableProperty.Create("Ranges", typeof(float[]), typeof(RadVerticalGauge),
-                new float[0], BindingMode.OneWay, null, OnRangesPropertyChanged);
+            BindableProperty.Create("Ranges", typeof(double[]), typeof(RadVerticalGauge),
+                new double[0], BindingMode.OneWay, null, OnRangesPropertyChanged);
 
         private SKSize axisSize;
         private float offset;
@@ -30,9 +30,9 @@ namespace RadGauge
             this.Indicator = new VerticalGaugeIndicatorRenderer() { WidthRequest = 20, Value = 22, };
         }
 
-        public float[] Ranges
+        public double[] Ranges
         {
-            get { return (float[])this.GetValue(RangesProperty); }
+            get { return (double[])this.GetValue(RangesProperty); }
             set { this.SetValue(RangesProperty, value); }
         }
 

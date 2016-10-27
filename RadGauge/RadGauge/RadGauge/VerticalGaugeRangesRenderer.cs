@@ -13,7 +13,7 @@ namespace RadGauge
         {
         }
 
-        internal float[] Ranges { get; set; }
+        internal double[] Ranges { get; set; }
 
         public void Render(SKCanvas canvas, SKRect layoutSlot)
         {
