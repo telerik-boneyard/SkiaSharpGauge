@@ -22,6 +22,7 @@ namespace GaugeApp
 
             gauge.SetValue(Grid.RowProperty, 1);
             gauge.SetValue(Grid.ColumnProperty, 0);
+            gauge.SetValue(RadVerticalGauge.MarginProperty, new Thickness(10));
             this.root.Children.Add(gauge);
 
             gauge = new RadVerticalGauge()
@@ -36,6 +37,7 @@ namespace GaugeApp
 
             gauge.SetValue(Grid.RowProperty, 1);
             gauge.SetValue(Grid.ColumnProperty, 1);
+            gauge.SetValue(RadVerticalGauge.MarginProperty, new Thickness(10));
             this.root.Children.Add(gauge);
 
             gauge = new RadVerticalGauge()
@@ -50,6 +52,7 @@ namespace GaugeApp
 
             gauge.SetValue(Grid.RowProperty, 1);
             gauge.SetValue(Grid.ColumnProperty, 2);
+            gauge.SetValue(RadVerticalGauge.MarginProperty, new Thickness(10));
             this.root.Children.Add(gauge);
         }
     }
