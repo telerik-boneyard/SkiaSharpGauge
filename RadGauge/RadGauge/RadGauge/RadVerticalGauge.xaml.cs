@@ -7,6 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using System.Diagnostics;
+using System.Threading;
+using System.Diagnostics.Contracts;
+using System.Collections.ObjectModel;
 
 namespace RadGauge
 {
@@ -34,6 +38,8 @@ namespace RadGauge
         private SKSize indicatorSize;
 
         private SKSize sizeCache;
+
+        public event EventHandler AnimationCompleted;
 
         public RadVerticalGauge()
         {
@@ -131,7 +137,92 @@ namespace RadGauge
         private static void OnAxisPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             RadVerticalGauge gauge = bindable as RadVerticalGauge;
+
             gauge.canvas.InvalidateSurface();
+        }
+
+        public void AnimateTo(double value)
+        {
+            AnimateTo(value, 200, 10, Easing.CubicOut);
+        }
+
+        public void AnimateTo(double value, int duration)
+        {
+            AnimateTo(value, duration, 10, Easing.CubicOut);
+        }
+
+        public void AnimateTo(double value, int duration, int rate)
+        {
+            AnimateTo(value, duration, rate, Easing.CubicOut);
+        }
+
+        public void AnimateTo(double value, int duration, Easing easing)
+        {
+            AnimateTo(value, duration, 10, easing);
+        }
+
+        public void AnimateTo(double value, int duration, int rate, Easing easing)
+        {
+            Task.Run(async () =>
+            {
+                this.currentAnimationId++;
+                await AnimateAsync(this.Indicator.Value, value, easing, duration, rate, this.currentAnimationId);
+            });
+        }
+
+        private async Task AnimateAsync(double startValue, double value, Easing easing, int duration, int rate, int animationId)
+        {
+            int lastTime = 0;
+            int i;
+            for (i = rate; i <= duration; i += rate)
+            {
+                await Task.Delay(rate);
+
+                var time = (double)i / duration;
+                var newValue = startValue + easing.Ease(time) * (value - startValue);
+
+                if (!UpdateIndicatorValue(newValue, animationId))
+                {
+                    return;
+                }
+
+                lastTime = i;
+            }
+
+            if (lastTime < duration)
+            {
+                await Task.Delay(duration - lastTime);
+
+                if (!UpdateIndicatorValue(value, animationId))
+                {
+                    return;
+                }
+            }
+
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                this.AnimationCompleted?.Invoke(this, EventArgs.Empty);
+            });
+        }
+
+        private int currentAnimationId;
+
+        private bool UpdateIndicatorValue(double value, int animationId)
+        {
+            if (animationId != currentAnimationId)
+            {
+                return false;
+            }
+
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                this.Indicator.Value = value;
+                //// TODO: remove this when indicator value has onchanged method
+                canvas.InvalidateSurface();
+                ////  
+            });
+
+            return true;
         }
     }
 }

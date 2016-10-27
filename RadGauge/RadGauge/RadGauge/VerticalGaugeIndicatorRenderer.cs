@@ -107,7 +107,5 @@ namespace RadGauge
             float desiredHeight = availableSize.Height < double.MaxValue ? availableSize.Height : 0;
             return new SKSize(this.actualWidthRequest, desiredHeight);
         }
-
-
     }
 }

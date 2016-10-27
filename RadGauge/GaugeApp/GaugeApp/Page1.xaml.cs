@@ -1,23 +1,19 @@
-﻿using RadGauge;
-using SkiaSharp;
-using SkiaSharp.Views.Forms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System;
+using RadGauge;
 using Xamarin.Forms;
 
 namespace GaugeApp
 {
     public partial class Page1 : ContentPage
     {
+        static int i;
         RadVerticalGauge gauge;
+
         public Page1()
         {
             InitializeComponent();
-            this.gauge = new RadVerticalGauge() { Ranges = new double[] { 0, 33, 66, 1000 }, Maximum = 100, HeightRequest = 300 };
+
+            this.gauge = new RadVerticalGauge() { Ranges = new double[] { 0, 33, 66, 100 }, Maximum = 100, HeightRequest = 300 };
             this.root.Children.Add(gauge);
 
             Button increaseMaxButton = new Button() { Text = "Increase Maximum" };
@@ -31,6 +27,16 @@ namespace GaugeApp
             Button increaseStepButton = new Button() { Text = "Increase Step" };
             increaseStepButton.Clicked += this.IncreaseStepButton_Clicked;
             this.root.Children.Add(increaseStepButton);
+
+            var animateButton = new Button { Text = "animate" };
+            animateButton.Clicked += Animate;
+
+            this.root.Children.Add(animateButton);
+        }
+
+        void Animate(object sender, EventArgs e)
+        {
+            gauge.AnimateTo(i++ % 2 == 0 ? 85 : 22, 500);
         }
 
         private void IncreaseMaxButton_Clicked(object sender, EventArgs e)
