@@ -28,8 +28,8 @@
       <ColumnDefinition Width="*"></ColumnDefinition>
       <ColumnDefinition Width="*"></ColumnDefinition>
     </Grid.ColumnDefinitions>
-    <Label Text="Ракията от магазина &#176;C"></Label>
-    <Label Text="Ракията на комшията &#176;C" Grid.Column="1"></Label>
-    <Label Text="Моята ракия &#176;C" Grid.Column="2"></Label>
+    <Label Text="Ракията от магазина &#176;vol"></Label>
+    <Label Text="Ракията на комшията &#176;vol" Grid.Column="1"></Label>
+    <Label Text="Моята ракия &#176;vol" Grid.Column="2"></Label>
   </Grid>
 </ContentPage>
