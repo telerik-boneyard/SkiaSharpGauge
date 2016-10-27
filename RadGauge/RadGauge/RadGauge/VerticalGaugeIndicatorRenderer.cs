@@ -76,7 +76,7 @@ namespace RadGauge
 
         public void Render(SKCanvas canvas, SKRect layoutSlot)
         {
-            float position = (float)GetTickPosition(this.value, this.min, this.max, layoutSlot);
+            float position = GaugeRenderHelper.GetRelativePosition(this.value, this.min, this.max, layoutSlot.Bottom, layoutSlot.Top);
             using (var paint = this.CreatePaint())
             {
                 using (var path = new SKPath())
@@ -108,13 +108,6 @@ namespace RadGauge
             return new SKSize(this.actualWidthRequest, desiredHeight);
         }
 
-        internal static float GetTickPosition(double value, double min, double max, SKRect layoutSlot)
-        {
-            double relativePosition = (value - min) / (max - min);
-            double position = relativePosition * layoutSlot.Height;
-            position = layoutSlot.Bottom - position;
 
-            return (float)position;
-        }
     }
 }

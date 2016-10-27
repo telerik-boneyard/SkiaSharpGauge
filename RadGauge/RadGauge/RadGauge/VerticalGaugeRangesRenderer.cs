@@ -21,8 +21,8 @@ namespace RadGauge
 
             for (int i = 0; i < this.Ranges.Length - 1; i++)
             {
-                var bottom = VerticalGaugeIndicatorRenderer.GetTickPosition(this.Ranges[i], min, max, layoutSlot);
-                var top = VerticalGaugeIndicatorRenderer.GetTickPosition(this.Ranges[i + 1], min, max, layoutSlot);
+                var bottom = GaugeRenderHelper.GetRelativePosition(this.Ranges[i], min, max, layoutSlot.Bottom, layoutSlot.Top);
+                var top = GaugeRenderHelper.GetRelativePosition(this.Ranges[i + 1], min, max, layoutSlot.Bottom, layoutSlot.Top);
 
                 SKRect rect = new SKRect(layoutSlot.Left, top, layoutSlot.Right, bottom);
 
