@@ -39,6 +39,11 @@ namespace RadGauge
 
         private SKSize sizeCache;
 
+        private double axisLineStart;
+        private double axisLineEnd;
+        private bool touchEventsEstablished;
+        private bool isIndicatorInteractive;
+
         public event EventHandler AnimationCompleted;
 
         public RadVerticalGauge()
@@ -48,6 +53,7 @@ namespace RadGauge
             this.Axis = new VerticalGaugeAxisRenderer(this);
             this.RangesRenderer = new VerticalGaugeRangesRenderer(this);
             this.Indicator = new VerticalGaugeIndicatorRenderer(this) { WidthRequest = 20, Value = 22, };
+            this.isIndicatorInteractive = true;
         }
 
         public double[] Ranges
@@ -113,6 +119,10 @@ namespace RadGauge
 
         private void Render(SKCanvas canvas)
         {
+            this.axisLineStart = offset / 2;
+            this.axisLineEnd = axisSize.Height - (offset / 2);
+            this.EstablishTouchEvents();
+
             this.Axis.Render(canvas, new SKRect() { Top = 0, Left = 0, Size = axisSize });
             this.RangesRenderer.Render(canvas, new SKRect() { Left = axisSize.Width, Top = offset / 2, Size = rangesSize });
             this.Indicator.Render(canvas, new SKRect() { Left = axisSize.Width + rangesSize.Width, Top = offset / 2, Size = indicatorSize });
@@ -223,6 +233,49 @@ namespace RadGauge
             });
 
             return true;
+        }
+        private void EstablishTouchEvents()
+        {
+            if (this.touchEventsEstablished)
+            {
+                return;
+            }
+
+            try
+            {
+                RadTouchManager.AddTouchDownHandler(this, this.OnTouchMove);
+                RadTouchManager.AddTouchMoveHandler(this, this.OnTouchMove);
+                this.touchEventsEstablished = true;
+            }
+            catch
+            {
+            }
+        }
+
+        private void OnTouchMove(object sender, TouchEventArgs args)
+        {
+            if (this.isIndicatorInteractive)
+            {
+                this.Indicator.Value = this.ConvertPointToValue(args.Position);
+                this.canvas.InvalidateSurface();
+            }
+        }
+
+        internal double ConvertPointToValue(Point point)
+        {
+            int min = 0;
+
+            double position = point.Y;
+            double relativePosition = 1 - (position - this.axisLineStart) / (this.axisLineEnd - axisLineStart);
+            double value = min + (relativePosition * (this.Maximum - min));
+            value = Coerce(value, min, this.Maximum);
+
+            return value;
+        }
+
+        private double Coerce(double value, double min, double max)
+        {
+            return Math.Min(max, Math.Max(min, value));
         }
     }
 }

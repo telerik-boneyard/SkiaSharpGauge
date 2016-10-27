@@ -40,6 +40,9 @@
     <Compile Include="RadVerticalGauge.xaml.cs">
       <DependentUpon>RadVerticalGauge.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TouchManager\TouchEventArgs.cs" />
+    <Compile Include="TouchManager\IRadTouchManager.cs" />
+    <Compile Include="TouchManager\RadTouchManager.cs" />
     <Compile Include="VerticalGaugeAxisRenderer.cs" />
     <Compile Include="VerticalGaugeIndicatorRenderer.cs" />
     <Compile Include="IGaugePartRenderer.cs" />
