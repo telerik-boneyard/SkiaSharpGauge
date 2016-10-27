@@ -6,8 +6,7 @@ namespace RadGauge
     public class VerticalGaugeAxisRenderer : IGaugePartRenderer
     {
         double min = 0;
-        double max = 100;
-        double step = 20;
+       double step = 20;
         float fontSize = 20f;
         float axisWidth = 1f;
         float tickLength = 5f;
@@ -26,6 +25,8 @@ namespace RadGauge
         {
             get { return maxLabelSize; }
         }
+
+        public double Maximum { get; internal set; }
 
         public SKSize Measure(SKSize rect)
         {
@@ -52,9 +53,9 @@ namespace RadGauge
                 paint.TextEncoding = SKTextEncoding.Utf32;
                 paint.TextSize = fontSize;
 
-                for (var i = min; i <= max; i += step)
+                for (var i = min; i <= this.Maximum; i += step)
                 {
-                    var position = GaugeRenderHelper.GetRelativePosition(i, min, max, top + height, top);
+                    var position = GaugeRenderHelper.GetRelativePosition(i, min, this.Maximum, top + height, top);
                     DrawLabel(i.ToString(), left, position, labelColor, paint, canvas);
 
                     var tickTop = position;
@@ -100,7 +101,7 @@ namespace RadGauge
             })
             {
                 double i;
-                for (i = this.min; i <= this.max; i += step)
+                for (i = this.min; i <= this.Maximum; i += step)
                 {
                     var bounds = MeasureText(i.ToString(), paint);
 
@@ -117,7 +118,7 @@ namespace RadGauge
                     lastLabelHeight = bounds.Height;
                 }
 
-                if (i > max)
+                if (i > this.Maximum)
                 {
                     var bounds = MeasureText(i.ToString(), paint);
                     if (bounds.Width > maxWidth)

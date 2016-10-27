@@ -16,10 +16,16 @@ namespace RadGauge
             BindableProperty.Create("Ranges", typeof(double[]), typeof(RadVerticalGauge),
                 new double[0], BindingMode.OneWay, null, OnRangesPropertyChanged);
 
+        public static BindableProperty MaximumProperty =
+            BindableProperty.Create("Maximum", typeof(double), typeof(RadVerticalGauge),
+                0d, BindingMode.OneWay, null, OnMaximumPropertyChanged);
+
         private SKSize axisSize;
         private float offset;
         private SKSize rangesSize;
         private SKSize indicatorSize;
+
+        private SKSize sizeCache;
 
         public RadVerticalGauge()
         {
@@ -34,6 +40,12 @@ namespace RadGauge
         {
             get { return (double[])this.GetValue(RangesProperty); }
             set { this.SetValue(RangesProperty, value); }
+        }
+
+        public double Maximum
+        {
+            get { return (double)this.GetValue(MaximumProperty); }
+            set { this.SetValue(MaximumProperty, value); }
         }
 
         internal VerticalGaugeAxisRenderer Axis
@@ -59,7 +71,7 @@ namespace RadGauge
             base.OnSizeAllocated(width, height);
             if (width == -1) return;
 
-            this.Measure(new SKSize((float)width, (float)height));
+            this.sizeCache = new SKSize((float)width, (float)height);
         }
 
         private void Measure(SKSize availableSize)
@@ -82,6 +94,7 @@ namespace RadGauge
 
         private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
         {
+            this.Measure(this.sizeCache);
             var canvas = e.Surface.Canvas;
             canvas.Clear(Color.Gray.ToSKColor());
 
@@ -94,5 +107,15 @@ namespace RadGauge
             gauge.RangesRenderer.Ranges = gauge.Ranges;
             gauge.InvalidateLayout();
         }
+
+        private static void OnMaximumPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            RadVerticalGauge gauge = bindable as RadVerticalGauge;
+            gauge.Axis.Maximum = gauge.Maximum;
+            
+            gauge.canvas.InvalidateSurface();
+        }
+
+        
     }
 }
