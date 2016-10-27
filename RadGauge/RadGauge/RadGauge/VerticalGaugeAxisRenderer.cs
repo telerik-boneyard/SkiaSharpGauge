@@ -1,5 +1,4 @@
-﻿using System;
-using SkiaSharp;
+﻿using SkiaSharp;
 
 namespace RadGauge
 {
@@ -12,6 +11,11 @@ namespace RadGauge
         float axisWidth = 1f;
         float tickLength = 5f;
         float tickThickness = 1f;
+        SKColor axisColor = (SKColor)0xFF000000;
+        SKColor tickColor = (SKColor)0xFF000000;
+        SKColor labelColor = (SKColor)0xFF000000;
+        float labelsOffset = 5f;
+        float tickOffset = 0f;
 
         SKSize maxLabelSize;
 
@@ -23,7 +27,7 @@ namespace RadGauge
         public SKSize Measure(SKSize rect)
         {
             this.maxLabelSize = GetMaxLabelSize();
-            var width = maxLabelSize.Width + axisWidth + tickLength;
+            var width = tickOffset + labelsOffset + maxLabelSize.Width + axisWidth + tickLength + 1;
 
             return new SKSize(width, rect.Height);
         }
@@ -31,57 +35,55 @@ namespace RadGauge
         public void Render(SKCanvas canvas, SKRect layoutSlot)
         {
             float top = maxLabelSize.Height / 2;
-            float left = 0;
+            float left = layoutSlot.Left;
 
             var height = layoutSlot.Height - maxLabelSize.Height;
 
             var axisLayoutSlot = new SKRect(left, top, left + layoutSlot.Width, top + height);
-            var tickLeft = left + maxLabelSize.Width;
+            var tickLeft = labelsOffset + left + maxLabelSize.Width;
 
             for (var i = min; i <= max; i += step)
             {
                 var position = VerticalGaugeIndicatorRenderer.GetTickPosition(i, min, max, axisLayoutSlot);
-                DrawLabel(i.ToString(), left, position, canvas);
-
+                DrawLabel(i.ToString(), left, position, labelColor, canvas);
 
                 var tickTop = position;
-
                 var tickRect = new SKRect(tickLeft, tickTop, tickLeft + tickLength, tickTop + tickThickness);
-                DrawRect(tickRect, canvas);
+                DrawRect(tickRect, tickColor, canvas);
             }
 
-            var axisLeft = tickLeft + tickLength;
+            var axisLeft = tickOffset + tickLeft + tickLength;
 
-
-            DrawRect(new SKRect(axisLeft, top, axisLeft + axisWidth, top + height), canvas);
+            DrawRect(new SKRect(axisLeft, top, axisLeft + axisWidth, top + height), axisColor, canvas);
         }
 
-        private void DrawLabel(string text, float left, float top, SKCanvas canvas)
+        private void DrawLabel(string text, float x, float y, SKColor color, SKCanvas canvas)
         {
             using (var paint = new SKPaint())
             {
-                paint.TextSize = 20f;
+                paint.TextSize = fontSize;
                 paint.IsAntialias = true;
-                paint.Color = (SKColor)0xFFFF0000;
+                paint.Color = color;
                 paint.TextEncoding = SKTextEncoding.Utf32;
                 paint.IsStroke = false;
 
-                canvas.DrawText(text, left, top, paint);
+                SKRect bounds;
+                paint.MeasureText(text, ref bounds);
+
+                canvas.DrawText(text, x + maxLabelSize.Width - bounds.Width, y - bounds.Top / 2, paint);
             }
         }
 
-        private void DrawRect(SKRect rect, SKCanvas canvas)
+        private void DrawRect(SKRect rect, SKColor color, SKCanvas canvas)
         {
             using (var paint = new SKPaint())
             {
                 paint.IsAntialias = true;
-                paint.Color = (SKColor)0xFFFF0000;
+                paint.Color = color;
 
                 canvas.DrawRect(rect, paint);
             }
         }
-
-
 
         private SKSize GetMaxLabelSize()
         {
@@ -131,7 +133,5 @@ namespace RadGauge
 
             return new SKSize(maxWidth, maxHeight);
         }
-
-
     }
 }
