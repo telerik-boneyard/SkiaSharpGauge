@@ -5,14 +5,10 @@ namespace RadGauge
 {
     public class VerticalGaugeRangesRenderer : IGaugePartRenderer
     {
-        //private Color[] colors = { Color.Red, Color.Green, Color.White };
-
         public VerticalGaugeRangesRenderer(RadVerticalGauge owner)
         {
             this.Owner = owner;
         }
-
-        internal double[] Ranges { get; set; }
 
         public RadVerticalGauge Owner { get; set; }
 
@@ -20,10 +16,10 @@ namespace RadGauge
         {
             float totalHeight = layoutSlot.Height;
 
-            for (int i = 0; i < this.Ranges.Length - 1; i++)
+            for (int i = 0; i < this.Owner.Ranges.Length - 1; i++)
             {
-                var bottom = GaugeRenderHelper.GetRelativePosition(this.Ranges[i], this.Owner.Minimum, this.Owner.Maximum, layoutSlot.Bottom, layoutSlot.Top, true);
-                var top = GaugeRenderHelper.GetRelativePosition(this.Ranges[i + 1], this.Owner.Minimum, this.Owner.Maximum, layoutSlot.Bottom, layoutSlot.Top, true);
+                var bottom = GaugeRenderHelper.GetRelativePosition(this.Owner.Ranges[i], this.Owner.Minimum, this.Owner.Maximum, layoutSlot.Bottom, layoutSlot.Top, true);
+                var top = GaugeRenderHelper.GetRelativePosition(this.Owner.Ranges[i + 1], this.Owner.Minimum, this.Owner.Maximum, layoutSlot.Bottom, layoutSlot.Top, true);
 
                 SKRect rect = new SKRect(layoutSlot.Left, top, layoutSlot.Right, bottom);
 

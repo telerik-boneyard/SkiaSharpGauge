@@ -18,7 +18,7 @@ namespace RadGauge
     {
         public static BindableProperty RangesProperty =
             BindableProperty.Create("Ranges", typeof(double[]), typeof(RadVerticalGauge),
-                new double[0], BindingMode.OneWay, null, OnRangesPropertyChanged);
+                new double[0], BindingMode.OneWay, null, InvalidateGauge);
 
         public static BindableProperty MaximumProperty =
             BindableProperty.Create("Maximum", typeof(double), typeof(RadVerticalGauge),
@@ -36,8 +36,9 @@ namespace RadGauge
             BindableProperty.Create("IndicatorValue", typeof(double), typeof(RadVerticalGauge),
                 20d, BindingMode.OneWay, null, InvalidateGauge);
 
-        public static BindableProperty ColorsProperty = BindableProperty.Create("Colors", typeof(Color[]), typeof(RadVerticalGauge),
-            new Color[0], BindingMode.OneWay, null, InvalidateGauge);
+        public static BindableProperty ColorsProperty = 
+            BindableProperty.Create("Colors", typeof(Color[]), typeof(RadVerticalGauge),
+                new Color[0], BindingMode.OneWay, null, InvalidateGauge);
 
         private SKSize axisSize;
         private float offset;
@@ -153,13 +154,6 @@ namespace RadGauge
             canvas.Clear(Color.Gray.ToSKColor());
 
             this.Render(canvas);
-        }
-
-        private static void OnRangesPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            RadVerticalGauge gauge = bindable as RadVerticalGauge;
-            gauge.RangesRenderer.Ranges = gauge.Ranges;
-            gauge.InvalidateLayout();
         }
 
         private static void InvalidateGauge(BindableObject bindable, object oldValue, object newValue)
