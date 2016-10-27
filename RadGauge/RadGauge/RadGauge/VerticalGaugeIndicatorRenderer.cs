@@ -77,6 +77,11 @@ namespace RadGauge
         public void Render(SKCanvas canvas, SKRect layoutSlot)
         {
             float position = GaugeRenderHelper.GetRelativePosition(this.value, this.Owner.Minimum, this.Owner.Maximum, layoutSlot.Bottom, layoutSlot.Top);
+            if (position > layoutSlot.Bottom && position > layoutSlot.Top || position < layoutSlot.Bottom && position < layoutSlot.Top)
+            {
+                return;
+            }
+
             using (var paint = this.CreatePaint())
             {
                 using (var path = new SKPath())
