@@ -51,11 +51,6 @@ namespace GaugeApp
             gauge.SetValue(Grid.RowProperty, 1);
             gauge.SetValue(Grid.ColumnProperty, 2);
             this.root.Children.Add(gauge);
-
-            
-
         }
-
-  
     }
 }

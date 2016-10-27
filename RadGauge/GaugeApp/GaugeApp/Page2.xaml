@@ -4,6 +4,20 @@
              xmlns:views="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              xmlns:gauge="clr-namespace:RadGauge;assembly=RadGauge"
              x:Class="GaugeApp.Page2">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <Style TargetType="Label">
+        <Setter Property="FontSize">
+          <Setter.Value>
+            <OnPlatform x:TypeArguments="x:Double"
+              iOS="12"
+              Android="10"
+              WinPhone="18" />
+          </Setter.Value>
+        </Setter>
+      </Style>
+    </ResourceDictionary>
+  </ContentPage.Resources>
   <Grid x:Name="root" BackgroundColor="Gray">
     <Grid.RowDefinitions>
       <RowDefinition Height="30"></RowDefinition>
@@ -14,8 +28,8 @@
       <ColumnDefinition Width="*"></ColumnDefinition>
       <ColumnDefinition Width="*"></ColumnDefinition>
     </Grid.ColumnDefinitions>
-    <Label Text="Ракията от магазина"></Label>
-    <Label Text="Ракията на комшията" Grid.Column="1"></Label>
-    <Label Text="Моята ракия" Grid.Column="2"></Label>
+    <Label Text="Ракията от магазина &#176;C"></Label>
+    <Label Text="Ракията на комшията &#176;C" Grid.Column="1"></Label>
+    <Label Text="Моята ракия &#176;C" Grid.Column="2"></Label>
   </Grid>
 </ContentPage>
