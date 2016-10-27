@@ -22,14 +22,16 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="38"></RowDefinition>
       <RowDefinition Height="*"></RowDefinition>
+      <RowDefinition Height="38"></RowDefinition>
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*"></ColumnDefinition>
       <ColumnDefinition Width="*"></ColumnDefinition>
       <ColumnDefinition Width="*"></ColumnDefinition>
     </Grid.ColumnDefinitions>
-    <Label Text="Ракията от магазина &#176;vol"></Label>
-    <Label Text="Ракията на комшията &#176;vol" Grid.Column="1"></Label>
-    <Label Text="Моята ракия &#176;vol" Grid.Column="2"></Label>
+    <Label Text="Rakia from the local store &#176;vol"></Label>
+    <Label Text="My neighbour's rakia &#176;vol" Grid.Column="1"></Label>
+    <Label Text="My own rakia &#176;vol" Grid.Column="2"></Label>
+    <Label Text="* Rakia is Bulgarian national strong alcoholic drink." Grid.Row="2" Grid.ColumnSpan="3"></Label>
   </Grid>
 </ContentPage>
