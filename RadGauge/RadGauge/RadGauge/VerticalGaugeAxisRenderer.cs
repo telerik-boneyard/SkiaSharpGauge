@@ -5,8 +5,6 @@ namespace RadGauge
 {
     public class VerticalGaugeAxisRenderer : IGaugePartRenderer
     {
-        double min = 0;
-       double step = 20;
         float fontSize = 20f;
         float axisWidth = 1f;
         float tickLength = 5f;
@@ -21,12 +19,17 @@ namespace RadGauge
 
         SKSize maxLabelSize;
 
+        public VerticalGaugeAxisRenderer(RadVerticalGauge owner)
+        {
+            this.Owner = owner;
+        }
+
         public SKSize MaxLabelSize
         {
             get { return maxLabelSize; }
         }
 
-        public double Maximum { get; internal set; }
+        public RadVerticalGauge Owner { get; set; }
 
         public SKSize Measure(SKSize rect)
         {
@@ -53,9 +56,9 @@ namespace RadGauge
                 paint.TextEncoding = SKTextEncoding.Utf32;
                 paint.TextSize = fontSize;
 
-                for (var i = min; i <= this.Maximum; i += step)
+                for (var i = this.Owner.Minimum; i <= this.Owner.Maximum; i += this.Owner.Step)
                 {
-                    var position = GaugeRenderHelper.GetRelativePosition(i, min, this.Maximum, top + height, top);
+                    var position = GaugeRenderHelper.GetRelativePosition(i, this.Owner.Minimum, this.Owner.Maximum, top + height, top, true);
                     DrawLabel(i.ToString(), left, position, labelColor, paint, canvas);
 
                     var tickTop = position;
@@ -101,7 +104,7 @@ namespace RadGauge
             })
             {
                 double i;
-                for (i = this.min; i <= this.Maximum; i += step)
+                for (i = this.Owner.Minimum; i <= this.Owner.Maximum; i += this.Owner.Step)
                 {
                     var bounds = MeasureText(i.ToString(), paint);
 
@@ -110,7 +113,7 @@ namespace RadGauge
                         maxWidth = bounds.Width;
                     }
 
-                    if (i == min && maxHeight < bounds.Height)
+                    if (i == this.Owner.Minimum && maxHeight < bounds.Height)
                     {
                         maxHeight = bounds.Height;
                     }
@@ -118,7 +121,7 @@ namespace RadGauge
                     lastLabelHeight = bounds.Height;
                 }
 
-                if (i > this.Maximum)
+                if (i > this.Owner.Maximum)
                 {
                     var bounds = MeasureText(i.ToString(), paint);
                     if (bounds.Width > maxWidth)

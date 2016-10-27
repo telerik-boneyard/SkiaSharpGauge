@@ -18,7 +18,15 @@ namespace RadGauge
 
         public static BindableProperty MaximumProperty =
             BindableProperty.Create("Maximum", typeof(double), typeof(RadVerticalGauge),
-                0d, BindingMode.OneWay, null, OnMaximumPropertyChanged);
+                100d, BindingMode.OneWay, null, OnAxisPropertyChanged);
+
+        public static BindableProperty MinimumProperty =
+            BindableProperty.Create("Minimum", typeof(double), typeof(RadVerticalGauge),
+                0d, BindingMode.OneWay, null, OnAxisPropertyChanged);
+
+        public static BindableProperty StepProperty =
+            BindableProperty.Create("Step", typeof(double), typeof(RadVerticalGauge),
+                20d, BindingMode.OneWay, null, OnAxisPropertyChanged);
 
         private SKSize axisSize;
         private float offset;
@@ -31,9 +39,9 @@ namespace RadGauge
         {
             InitializeComponent();
             //this.Parts = new List<VerticalGaugePart>();
-            this.Axis = new VerticalGaugeAxisRenderer();
-            this.RangesRenderer = new VerticalGaugeRangesRenderer();
-            this.Indicator = new VerticalGaugeIndicatorRenderer() { WidthRequest = 20, Value = 22, };
+            this.Axis = new VerticalGaugeAxisRenderer(this);
+            this.RangesRenderer = new VerticalGaugeRangesRenderer(this);
+            this.Indicator = new VerticalGaugeIndicatorRenderer(this) { WidthRequest = 20, Value = 22, };
         }
 
         public double[] Ranges
@@ -46,6 +54,18 @@ namespace RadGauge
         {
             get { return (double)this.GetValue(MaximumProperty); }
             set { this.SetValue(MaximumProperty, value); }
+        }
+
+        public double Minimum
+        {
+            get { return (double)this.GetValue(MinimumProperty); }
+            set { this.SetValue(MinimumProperty, value); }
+        }
+
+        public double Step
+        {
+            get { return (double)this.GetValue(StepProperty); }
+            set { this.SetValue(StepProperty, value); }
         }
 
         internal VerticalGaugeAxisRenderer Axis
@@ -108,14 +128,10 @@ namespace RadGauge
             gauge.InvalidateLayout();
         }
 
-        private static void OnMaximumPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void OnAxisPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             RadVerticalGauge gauge = bindable as RadVerticalGauge;
-            gauge.Axis.Maximum = gauge.Maximum;
-            
             gauge.canvas.InvalidateSurface();
         }
-
-        
     }
 }

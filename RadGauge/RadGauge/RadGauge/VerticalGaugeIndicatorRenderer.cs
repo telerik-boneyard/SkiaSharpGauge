@@ -5,9 +5,6 @@ namespace RadGauge
 {
     public class VerticalGaugeIndicatorRenderer : IGaugePartRenderer
     {
-        int min = 0;
-        int max = 100;
-
         double value = 67;
 
         float actualWidthRequest = 50;
@@ -16,10 +13,13 @@ namespace RadGauge
         private Color color = Color.FromHex("55AAEE");
         private SKColor skColor;
 
-        public VerticalGaugeIndicatorRenderer()
+        public VerticalGaugeIndicatorRenderer(RadVerticalGauge owner)
         {
+            this.Owner = owner;
             this.skColor = ColorExtensions.ToSKColor(this.color);
         }
+
+        public RadVerticalGauge Owner { get; set; }
 
         public double Value
         {
@@ -76,7 +76,7 @@ namespace RadGauge
 
         public void Render(SKCanvas canvas, SKRect layoutSlot)
         {
-            float position = GaugeRenderHelper.GetRelativePosition(this.value, this.min, this.max, layoutSlot.Bottom, layoutSlot.Top);
+            float position = GaugeRenderHelper.GetRelativePosition(this.value, this.Owner.Minimum, this.Owner.Maximum, layoutSlot.Bottom, layoutSlot.Top);
             using (var paint = this.CreatePaint())
             {
                 using (var path = new SKPath())

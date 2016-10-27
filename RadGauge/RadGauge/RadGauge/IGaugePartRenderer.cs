@@ -10,5 +10,7 @@ namespace RadGauge
     public interface IGaugePartRenderer
     {
         void Render(SKCanvas canvas, SKRect layoutSlot);
+
+        RadVerticalGauge Owner { get; set; }
     }
 }
