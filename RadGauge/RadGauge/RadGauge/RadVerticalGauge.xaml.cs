@@ -58,7 +58,7 @@ namespace RadGauge
             InitializeComponent();
             this.Axis = new VerticalGaugeAxisRenderer(this);
             this.RangesRenderer = new VerticalGaugeRangesRenderer(this);
-            this.Indicator = new VerticalGaugeIndicatorRenderer(this) { WidthRequest = 20};
+            this.Indicator = new VerticalGaugeIndicatorRenderer(this) { WidthRequest = 20 };
             this.isIndicatorInteractive = true;
         }
 
@@ -245,9 +245,6 @@ namespace RadGauge
             Device.BeginInvokeOnMainThread(() =>
             {
                 this.IndicatorValue = value;
-                //// TODO: remove this when indicator value has onchanged method
-                canvas.InvalidateSurface();
-                ////  
             });
 
             return true;
@@ -275,7 +272,6 @@ namespace RadGauge
             if (this.isIndicatorInteractive)
             {
                 this.IndicatorValue = this.ConvertPointToValue(args.Position);
-                this.canvas.InvalidateSurface();
             }
         }
 
