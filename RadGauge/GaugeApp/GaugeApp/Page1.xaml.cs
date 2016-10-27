@@ -13,7 +13,13 @@ namespace GaugeApp
         {
             InitializeComponent();
 
-            this.gauge = new RadVerticalGauge() { Ranges = new double[] { 0, 33, 66, 100 }, Maximum = 100, HeightRequest = 300 };
+            this.gauge = new RadVerticalGauge()
+            {
+                Ranges = new double[] { 0, 33, 66, 100 },
+                Colors = new Color[] { Color.White, Color.Green, Color.Red},
+                Maximum = 100,
+                HeightRequest = 300
+            };
             this.root.Children.Add(gauge);
 
             Button increaseMaxButton = new Button() { Text = "Increase Maximum" };

@@ -5,7 +5,7 @@ namespace RadGauge
 {
     public class VerticalGaugeRangesRenderer : IGaugePartRenderer
     {
-        private Color[] colors = { Color.Red, Color.Green, Color.White };
+        //private Color[] colors = { Color.Red, Color.Green, Color.White };
 
         public VerticalGaugeRangesRenderer(RadVerticalGauge owner)
         {
@@ -27,7 +27,7 @@ namespace RadGauge
 
                 SKRect rect = new SKRect(layoutSlot.Left, top, layoutSlot.Right, bottom);
 
-                Color color = this.colors[i];
+                Color color = this.Owner.Colors[i];
                 DrawRectangle(canvas, rect, color);
             }
         }

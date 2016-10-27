@@ -36,6 +36,9 @@ namespace RadGauge
             BindableProperty.Create("IndicatorValue", typeof(double), typeof(RadVerticalGauge),
                 20d, BindingMode.OneWay, null, InvalidateGauge);
 
+        public static BindableProperty ColorsProperty = BindableProperty.Create("Colors", typeof(Color[]), typeof(RadVerticalGauge),
+            new Color[0], BindingMode.OneWay, null, InvalidateGauge);
+
         private SKSize axisSize;
         private float offset;
         private SKSize rangesSize;
@@ -87,6 +90,12 @@ namespace RadGauge
         {
             get { return (double)this.GetValue(IndicatorValueProperty); }
             set { this.SetValue(IndicatorValueProperty, value); }
+        }
+
+        public Color[] Colors
+        {
+            get { return (Color[])this.GetValue(ColorsProperty); }
+            set { this.SetValue(ColorsProperty, value); }
         }
 
         internal VerticalGaugeAxisRenderer Axis
@@ -185,7 +194,7 @@ namespace RadGauge
             Task.Run(async () =>
             {
                 this.currentAnimationId++;
-                await AnimateAsync(this.Indicator.Value, value, easing, duration, rate, this.currentAnimationId);
+                await AnimateAsync(this.IndicatorValue, value, easing, duration, rate, this.currentAnimationId);
             });
         }
 
@@ -235,7 +244,7 @@ namespace RadGauge
 
             Device.BeginInvokeOnMainThread(() =>
             {
-                this.Indicator.Value = value;
+                this.IndicatorValue = value;
                 //// TODO: remove this when indicator value has onchanged method
                 canvas.InvalidateSurface();
                 ////  
@@ -265,7 +274,7 @@ namespace RadGauge
         {
             if (this.isIndicatorInteractive)
             {
-                this.Indicator.Value = this.ConvertPointToValue(args.Position);
+                this.IndicatorValue = this.ConvertPointToValue(args.Position);
                 this.canvas.InvalidateSurface();
             }
         }
