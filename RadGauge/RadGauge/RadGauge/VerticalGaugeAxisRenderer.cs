@@ -9,9 +9,9 @@ namespace RadGauge
         float axisWidth = 1f;
         float tickLength = 5f;
         float tickThickness = 1f;
-        SKColor axisColor = (SKColor)0xFF000000;
-        SKColor tickColor = (SKColor)0xFF000000;
-        SKColor labelColor = (SKColor)0xFF000000;
+        //SKColor axisColor = (SKColor)0xFF000000;
+        //SKColor tickColor = (SKColor)0xFF000000;
+        //SKColor labelColor = (SKColor)0xFF000000;
         float labelsOffset = 5f;
         float tickOffset = 0f;
 
@@ -55,36 +55,32 @@ namespace RadGauge
                 paint.IsStroke = false;
                 paint.TextEncoding = SKTextEncoding.Utf32;
                 paint.TextSize = fontSize;
+                paint.Color = ColorExtensions.ToSKColor(this.Owner.AxisColor);
 
                 for (var i = this.Owner.Minimum; i <= this.Owner.Maximum; i += this.Owner.Step)
                 {
                     var position = GaugeRenderHelper.GetRelativePosition(i, this.Owner.Minimum, this.Owner.Maximum, top + height, top, true);
-                    DrawLabel(i.ToString(), left, position, labelColor, paint, canvas);
+                    DrawLabel(i.ToString(), left, position, paint, canvas);
 
                     var tickTop = position;
                     var tickRect = new SKRect(tickLeft, tickTop, tickLeft + tickLength, tickTop + tickThickness);
-                    DrawRect(tickRect, tickColor, paint, canvas);
+                    DrawRect(tickRect, paint, canvas);
                 }
 
                 var axisLeft = tickOffset + tickLeft + tickLength;
 
-                DrawRect(new SKRect(axisLeft, top, axisLeft + axisWidth, top + height), axisColor, paint, canvas);
+                DrawRect(new SKRect(axisLeft, top, axisLeft + axisWidth, top + height), paint, canvas);
             }
         }
 
-        private void DrawLabel(string text, float x, float y, SKColor color, SKPaint paint, SKCanvas canvas)
+        private void DrawLabel(string text, float x, float y, SKPaint paint, SKCanvas canvas)
         {
-            paint.Color = color;
-
             SKRect bounds = this.labelRects[text];
-
             canvas.DrawText(text, x + maxLabelSize.Width - bounds.Width, y - bounds.Top / 2, paint);
         }
 
-        private void DrawRect(SKRect rect, SKColor color, SKPaint paint, SKCanvas canvas)
+        private void DrawRect(SKRect rect, SKPaint paint, SKCanvas canvas)
         {
-            paint.Color = color;
-
             canvas.DrawRect(rect, paint);
         }
 

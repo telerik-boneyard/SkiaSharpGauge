@@ -8,13 +8,9 @@ namespace RadGauge
         float actualWidthRequest = 50;
         float widthRequest = 50;
 
-        private Color color = Color.FromHex("55AAEE");
-        private SKColor skColor;
-
         public VerticalGaugeIndicatorRenderer(RadVerticalGauge owner)
         {
             this.Owner = owner;
-            this.skColor = ColorExtensions.ToSKColor(this.color);
         }
 
         public RadVerticalGauge Owner { get; set; }
@@ -40,22 +36,6 @@ namespace RadGauge
                 else
                 {
                     this.actualWidthRequest = 0;
-                }
-            }
-        }
-
-        public Color Color
-        {
-            get
-            {
-                return this.color;
-            }
-            set
-            {
-                if (this.color != value)
-                {
-                    this.color = value;
-                    this.skColor = ColorExtensions.ToSKColor(this.color);
                 }
             }
         }
@@ -86,7 +66,7 @@ namespace RadGauge
         {
             SKPaint paint = new SKPaint();
             paint.IsAntialias = true;
-            paint.Color = this.skColor;
+            paint.Color = ColorExtensions.ToSKColor(this.Owner.IndicatorColor);
             paint.StrokeCap = SKStrokeCap.Round;
             paint.StrokeWidth = 5;
 

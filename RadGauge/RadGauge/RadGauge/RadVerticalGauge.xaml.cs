@@ -40,6 +40,21 @@ namespace RadGauge
             BindableProperty.Create("Colors", typeof(Color[]), typeof(RadVerticalGauge),
                 new Color[0], BindingMode.OneWay, null, InvalidateGauge);
 
+        public static BindableProperty RangesWidthProperty =
+            BindableProperty.Create("RangesWidth", typeof(double), typeof(RadVerticalGauge), 10d, propertyChanged: InvalidateGauge);
+
+        public static BindableProperty RangesOffsetProperty =
+            BindableProperty.Create("RangesOffset", typeof(double), typeof(RadVerticalGauge), 5d, propertyChanged: InvalidateGauge);
+
+        public static BindableProperty IndicatorOffsetProperty =
+          BindableProperty.Create("IndicatorOffset", typeof(double), typeof(RadVerticalGauge), 5d, propertyChanged: InvalidateGauge);
+
+        public static BindableProperty IndicatorColorProperty =
+            BindableProperty.Create("IndicatorColor", typeof(Color), typeof(RadVerticalGauge), Color.Black, propertyChanged: InvalidateGauge);
+
+        public static BindableProperty AxisColorProperty =
+            BindableProperty.Create("AxisColor", typeof(Color), typeof(RadVerticalGauge), Color.Black, propertyChanged: InvalidateGauge);
+
         private SKSize axisSize;
         private float offset;
         private SKSize rangesSize;
@@ -99,6 +114,36 @@ namespace RadGauge
             set { this.SetValue(ColorsProperty, value); }
         }
 
+        public double RangesWidth
+        {
+            get { return (double)this.GetValue(RangesWidthProperty); }
+            set { this.SetValue(RangesWidthProperty, value); }
+        }
+
+        public double RangesOffset
+        {
+            get { return (double)this.GetValue(RangesOffsetProperty); }
+            set { this.SetValue(RangesOffsetProperty, value); }
+        }
+
+        public double IndicatorOffset
+        {
+            get { return (double)this.GetValue(IndicatorOffsetProperty); }
+            set { this.SetValue(IndicatorOffsetProperty, value); }
+        }
+
+        public Color IndicatorColor
+        {
+            get { return (Color)this.GetValue(IndicatorColorProperty); }
+            set { this.SetValue(IndicatorColorProperty, value); }
+        }
+
+        public Color AxisColor
+        {
+            get { return (Color)this.GetValue(AxisColorProperty); }
+            set { this.SetValue(AxisColorProperty, value); }
+        }
+
         internal VerticalGaugeAxisRenderer Axis
         {
             get;
@@ -143,8 +188,8 @@ namespace RadGauge
             this.EstablishTouchEvents();
 
             this.Axis.Render(canvas, new SKRect() { Top = 0, Left = 0, Size = axisSize });
-            this.RangesRenderer.Render(canvas, new SKRect() { Left = axisSize.Width, Top = offset / 2, Size = rangesSize });
-            this.Indicator.Render(canvas, new SKRect() { Left = axisSize.Width + rangesSize.Width, Top = offset / 2, Size = indicatorSize });
+            this.RangesRenderer.Render(canvas, new SKRect() { Left = (float)RangesOffset + axisSize.Width, Top = offset / 2, Size = rangesSize });
+            this.Indicator.Render(canvas, new SKRect() { Left = axisSize.Width + rangesSize.Width + (float)RangesOffset + (float)IndicatorOffset, Top = offset / 2, Size = indicatorSize });
         }
 
         private void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
