@@ -263,12 +263,10 @@ namespace RadGauge
 
         internal double ConvertPointToValue(Point point)
         {
-            int min = 0;
-
             double position = point.Y;
             double relativePosition = 1 - (position - this.axisLineStart) / (this.axisLineEnd - axisLineStart);
-            double value = min + (relativePosition * (this.Maximum - min));
-            value = Coerce(value, min, this.Maximum);
+            double value = this.Minimum + (relativePosition * (this.Maximum - this.Minimum));
+            value = Coerce(value, this.Minimum, this.Maximum);
 
             return value;
         }
